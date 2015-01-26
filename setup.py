@@ -59,8 +59,8 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
     ],
-    ext_modules=[
-        Extension("nbiosearch/_bsp_search", ["nbiosearch/bsp_search.c"],
-                  include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries),
-    ]
+    # ext_modules=[
+    #     Extension("nbiosearch/_bsp_search", ["nbiosearch/bsp_search.c"],
+    #               include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries),
+    # ]
 )
