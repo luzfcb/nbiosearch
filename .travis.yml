@@ -10,7 +10,7 @@ python:
 
 install:
   - sudo apt-get update
-  - sudo apt-get install build-essentials python-dev  --yes --force-yes
+  - sudo apt-get install build-essential python-dev  --yes --force-yes
   - pip install coveralls Cython
 
 script:
