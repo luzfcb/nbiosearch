@@ -9,7 +9,7 @@ import platform
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 ENBSP_DIR = os.path.join(BASE_DIR, 'nbiosearch', 'eNBSP')
-ENBSP_SHARED_LIBS_DIR = os.path.join(ENBSP_DIR, 'bin')
+ENBSP_SHARED_LIBS_DIR = os.path.join(ENBSP_DIR, 'binaries')
 
 nitgen_headers_include_dirs = [os.path.join(ENBSP_DIR, 'include')]
 
