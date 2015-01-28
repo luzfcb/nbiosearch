@@ -55,7 +55,7 @@ nitgen_headers_include_dirs.append(nitgen_binary_library_path)
 
 nitgen_libraries = ["pthread", "NBioBSP"]
 
-swig_opts = ['-I{0} -L{0}'.format(lib_path) for lib_path in nitgen_headers_include_dirs]
+swig_opts = ['-I{0} -L{0}'.format(os.path.abspath(lib_path)) for lib_path in nitgen_headers_include_dirs]
 swig_opts.append('-includeall')
 swig_opts.append('-modern')
 swig_opts.append('-Wall')
