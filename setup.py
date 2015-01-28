@@ -20,22 +20,56 @@ PLATFORM_ARCHITECTURE = platform.architecture()[0]
 
 
 if '64' in PLATFORM_ARCHITECTURE and 'Linux' in PLATFORM_SYSTEM:
-    nitgen_headers_include_dirs.append(os.path.join(ENBSP_SHARED_LIBS_DIR, 'x64'))
-
+    nitgen_binary_library_path = os.path.join(ENBSP_SHARED_LIBS_DIR, 'x64')
 elif '32' in PLATFORM_ARCHITECTURE and 'Linux' in PLATFORM_SYSTEM:
-    nitgen_headers_include_dirs.append(os.path.join(ENBSP_SHARED_LIBS_DIR, 'x32'))
+    nitgen_binary_library_path = os.path.join(ENBSP_SHARED_LIBS_DIR, 'x32')
 
 if '64' in PLATFORM_ARCHITECTURE and 'Windows' in PLATFORM_SYSTEM:
-    nitgen_headers_include_dirs.append(os.path.join(ENBSP_SHARED_LIBS_DIR, 'win32'))
+    nitgen_binary_library_path = os.path.join(ENBSP_SHARED_LIBS_DIR, 'win32')
 elif '32' in PLATFORM_ARCHITECTURE and 'Windows' in PLATFORM_SYSTEM:
-    nitgen_headers_include_dirs.append(os.path.join(ENBSP_SHARED_LIBS_DIR, 'win32'))
+    nitgen_binary_library_path = os.path.join(ENBSP_SHARED_LIBS_DIR, 'win32')
+
+
+nitgen_headers_include_dirs.append(nitgen_binary_library_path)
 
 # from Cython.Distutils import build_ext
 #
 # nitgen_include_dirs=["/usr/local/NITGEN/eNBSP/include"]
 nitgen_libraries = ["pthread", "NBioBSP"]
 #
-swg_paran = '-I%s' % nitgen_headers_include_dirs[0]
+swig_opts = [ '-I%s' % i for i in nitgen_headers_include_dirs ]
+swig_opts.append('-includeall')
+swig_opts.append('-modern')
+swig_opts.append('-Wall')
+#swig_opts.append('-M')
+
+
+print(swig_opts)
+#swg_paran = '-I%s -L%s -l%s -Xlinker -rpath %s' % (nitgen_headers_include_dirs[0], nitgen_binary_library_path, "NBioBSP", nitgen_binary_library_path)
+
+interfaces_names = [
+#    'NBioAPI_Basic.i',
+#    'NBioAPI_Error.i',
+#    'NBioAPI_Type.i'
+#    'NBioAPI_IndexSearchType.i',
+    'NBioAPI_IndexSearch.i', 
+]
+
+
+#ext_modules=[ Extension('%s' % interface_name , [ os.path.join(BASE_DIR, 'nbiosearch', interface_name)], swig_opts=swig_opts, include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries) for #interface_name in interfaces_names
+#]
+
+sources = [ os.path.join(BASE_DIR, 'nbiosearch', interface_name) for interface_name in interfaces_names ]
+
+ext_modules=[
+    Extension('_NBioAPI_Basic', [os.path.join(BASE_DIR, 'nbiosearch', 'NBioAPI_Basic.i')] , swig_opts=swig_opts, include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries),
+    Extension('_NBioAPI_Error', [os.path.join(BASE_DIR, 'nbiosearch', 'NBioAPI_Error.i')] , swig_opts=swig_opts, include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries),
+    Extension('_NBioAPI_Type', [os.path.join(BASE_DIR, 'nbiosearch', 'NBioAPI_Type.i')] , swig_opts=swig_opts, include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries),
+    Extension('_NBioAPI_IndexSearchType', [os.path.join(BASE_DIR, 'nbiosearch', 'NBioAPI_IndexSearchType.i')] , swig_opts=swig_opts, include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries),  
+    Extension('_NBioAPI_IndexSearch', [os.path.join(BASE_DIR, 'nbiosearch', 'NBioAPI_IndexSearch.i')] , swig_opts=swig_opts, include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries)
+]
+
+
 setup(
     name="nbiosearch",
     version="0.1.0",
@@ -60,8 +94,7 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
     ],
-      ext_modules=[Extension('_nbiosearch2', ['nbiosearch2.i'],
-                             swig_opts=['-modern', swg_paran])],
+      ext_modules=ext_modules,
       py_modules=['nbiosearch2'],    
     # ext_modules=[
     #     Extension("nbiosearch/_bsp_search", ["nbiosearch/bsp_search.c"],

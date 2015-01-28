@@ -1,5 +1,2 @@
 include README.rst
-include COPYING.txt
-include COPYING.txt
-include COPYING.txt
 recursive-include nbiosearch *.c *.py *.dll *.so *.h *.cab

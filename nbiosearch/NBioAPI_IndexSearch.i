@@ -1,10 +1,15 @@
-/* nbiosearch2.i */
-%module nbiosearch2
-%include "NBioAPI_Basic.h"
-%include "NBioAPI_Type.h"
-%include "NBioAPI_IndexSearchType.h"
-%include "NBioAPI_Error.h"
+%module NBioAPI_IndexSearch
 %{
+#include "NBioAPI_IndexSearch.h"
+%}
+
+%import NBioAPI_Basic.i
+%import NBioAPI_Type.i
+%import NBioAPI_IndexSearchType.i
+%import NBioAPI_Error.i
+
+%include NBioAPI_IndexSearch.h
+
 #ifndef _NITGEN_NBioAPI_INDEXSEARCH_H
 #define _NITGEN_NBioAPI_INDEXSEARCH_H
 
@@ -140,9 +145,3 @@ extern NBioAPI_RETURN NBioAPI NBioAPI_CheckDataExistFromIndexSearchDB(
 #endif
 
 #endif/* _NITGEN_NBioAPI_INDEXSEARCH_H */
-
-
-%}
- 
-
-  

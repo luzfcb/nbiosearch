@@ -3,4 +3,5 @@
 __version__ = '0.1.0'
 __author__ = 'Fabio C. Barrionuevo da Luz <bnafta@gmail.com>'
 __maintainer__ = 'Fabio C. Barrionuevo da Luz <bnafta@gmail.com>'
-__all__ = []
+from . NBioAPI_IndexSearch import *
+#__all__ = []
