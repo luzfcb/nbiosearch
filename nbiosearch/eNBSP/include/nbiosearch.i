@@ -1,50 +1,57 @@
 /* nbiosearch.i */
 %module nbiosearch
+%include "NBioAPI_Basic.h"
+%include "NBioAPI_Type.h"
+%include "NBioAPI_IndexSearchType.h"
+%include "NBioAPI_Error.h"
 %{
+#ifndef _NITGEN_NBioAPI_INDEXSEARCH_H
+#define _NITGEN_NBioAPI_INDEXSEARCH_H
 
-#include "NBioAPI_Basic.h"
-#include "NBioAPI_Type.h"
-#include "NBioAPI_IndexSearchType.h"
-#include "NBioAPI_Error.h"
 
-/* #ifndef _NBioAPI_LOAD_LIBRARY */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifndef _NBioAPI_LOAD_LIBRARY
+
    /* IndexSearch Functions */
-   extern NBioAPI_RETURN NBioAPI NBioAPI_InitIndexSearchEngine(NBioAPI_HANDLE hHandle);
-   extern NBioAPI_RETURN NBioAPI NBioAPI_TerminateIndexSearchEngine(NBioAPI_HANDLE hHandle);
+extern NBioAPI_RETURN NBioAPI NBioAPI_InitIndexSearchEngine(NBioAPI_HANDLE hHandle);
+extern NBioAPI_RETURN NBioAPI NBioAPI_TerminateIndexSearchEngine(NBioAPI_HANDLE hHandle);
 
    /* Parameter Funtions */
-   extern NBioAPI_RETURN NBioAPI NBioAPI_SetIndexSearchInitInfo(
+extern NBioAPI_RETURN NBioAPI NBioAPI_SetIndexSearchInitInfo(
                  NBioAPI_HANDLE                    hHandle,
                  NBioAPI_UINT8                     nStructureType,
                  NBioAPI_INIT_INFO_PTR             pInitInfo);
-   extern NBioAPI_RETURN NBioAPI NBioAPI_GetIndexSearchInitInfo(
+extern NBioAPI_RETURN NBioAPI NBioAPI_GetIndexSearchInitInfo(
                  NBioAPI_HANDLE                    hHandle,
                  NBioAPI_UINT8                     nStructureType,
                  NBioAPI_INIT_INFO_PTR             pInitInfo);
 
    /* Add Funtion */
-   extern NBioAPI_RETURN NBioAPI NBioAPI_AddFIRToIndexSearchDB(
+extern NBioAPI_RETURN NBioAPI NBioAPI_AddFIRToIndexSearchDB(
                  NBioAPI_HANDLE                    hHandle, 
                  const NBioAPI_INPUT_FIR_PTR       pInputFIR,
                  NBioAPI_UINT32                    nUserID,
                  NBioAPI_INDEXSEARCH_SAMPLE_INFO_PTR pSampleInfo);
 
    /* Remove Functions */
-   extern NBioAPI_RETURN NBioAPI NBioAPI_RemoveDataFromIndexSearchDB(
+extern NBioAPI_RETURN NBioAPI NBioAPI_RemoveDataFromIndexSearchDB(
                  NBioAPI_HANDLE                    hHandle,
                  NBioAPI_INDEXSEARCH_FP_INFO_PTR   pFpInfo);
-   extern NBioAPI_RETURN NBioAPI NBioAPI_RemoveUserFromIndexSearchDB(
+extern NBioAPI_RETURN NBioAPI NBioAPI_RemoveUserFromIndexSearchDB(
                  NBioAPI_HANDLE                    hHandle,
                  NBioAPI_UINT32                    nUserID);
         
    /* Searching Funtions */
-   extern NBioAPI_RETURN NBioAPI NBioAPI_IdentifyDataFromIndexSearchDB(
+extern NBioAPI_RETURN NBioAPI NBioAPI_IdentifyDataFromIndexSearchDB(
                  NBioAPI_HANDLE                    hHandle, 
                  const NBioAPI_INPUT_FIR_PTR       pInputFIR,
                  NBioAPI_FIR_SECURITY_LEVEL        nSecuLevel,
                  NBioAPI_INDEXSEARCH_FP_INFO_PTR   pFpInfo,
                  NBioAPI_INDEXSEARCH_CALLBACK_INFO_PTR_0  pCallbackInfo0);
-   extern NBioAPI_RETURN NBioAPI NBioAPI_IdentifyDataFromIndexSearchDBEx(
+extern NBioAPI_RETURN NBioAPI NBioAPI_IdentifyDataFromIndexSearchDBEx(
                  NBioAPI_HANDLE                    hHandle, 
                  const NBioAPI_INPUT_FIR_PTR       pInputFIR,
                  NBioAPI_FIR_SECURITY_LEVEL        nSecuLevel,
@@ -52,26 +59,25 @@
                  NBioAPI_INDEXSEARCH_CALLBACK_INFO_PTR_0  pCallbackInfo0);
 
    /* DB Funtions */
-   extern NBioAPI_RETURN NBioAPI NBioAPI_ClearIndexSearchDB(NBioAPI_HANDLE hHandle);
+extern NBioAPI_RETURN NBioAPI NBioAPI_ClearIndexSearchDB(NBioAPI_HANDLE hHandle);
 
-   extern NBioAPI_RETURN NBioAPI NBioAPI_SaveIndexSearchDBToFile(
+extern NBioAPI_RETURN NBioAPI NBioAPI_SaveIndexSearchDBToFile(
                  NBioAPI_HANDLE                    hHandle, 
                  const NBioAPI_CHAR*               szFilepath);
-   extern NBioAPI_RETURN NBioAPI NBioAPI_LoadIndexSearchDBFromFile(
+extern NBioAPI_RETURN NBioAPI NBioAPI_LoadIndexSearchDBFromFile(
                  NBioAPI_HANDLE                    hHandle, 
                  const NBioAPI_CHAR*               szFilepath);
 
    /* Check Functions */
-   extern NBioAPI_RETURN NBioAPI NBioAPI_GetDataCountFromIndexSearchDB(
+extern NBioAPI_RETURN NBioAPI NBioAPI_GetDataCountFromIndexSearchDB(
                  NBioAPI_HANDLE                    hHandle, 
                  NBioAPI_UINT32*                   pDataCount);
-   extern NBioAPI_RETURN NBioAPI NBioAPI_CheckDataExistFromIndexSearchDB(
+extern NBioAPI_RETURN NBioAPI NBioAPI_CheckDataExistFromIndexSearchDB(
                  NBioAPI_HANDLE                    hHandle, 
                  NBioAPI_INDEXSEARCH_FP_INFO_PTR   pFpInfo,
                  NBioAPI_BOOL*                     pExist);
-
-/* _NBioAPI_LOAD_LIBRARY */                 
-/* #endif */
+   
+#endif/* _NBioAPI_LOAD_LIBRARY */
    
    /* IndexSearch Functions */
    typedef NBioAPI_RETURN (NBioAPI *FP_NBioAPI_InitIndexSearchEngine)(NBioAPI_HANDLE hHandle);
@@ -129,66 +135,14 @@
                  NBioAPI_INDEXSEARCH_FP_INFO_PTR   pFpInfo,
                  NBioAPI_BOOL*                     pExist);
 
+#ifdef __cplusplus
+}
+#endif
+
+#endif/* _NITGEN_NBioAPI_INDEXSEARCH_H */
+
+
 %}
+ 
 
-   /* IndexSearch Functions */
-   extern NBioAPI_RETURN NBioAPI NBioAPI_InitIndexSearchEngine(NBioAPI_HANDLE hHandle);
-   extern NBioAPI_RETURN NBioAPI NBioAPI_TerminateIndexSearchEngine(NBioAPI_HANDLE hHandle);
-
-   /* Parameter Funtions */
-   extern NBioAPI_RETURN NBioAPI NBioAPI_SetIndexSearchInitInfo(
-                 NBioAPI_HANDLE                    hHandle,
-                 NBioAPI_UINT8                     nStructureType,
-                 NBioAPI_INIT_INFO_PTR             pInitInfo);
-   extern NBioAPI_RETURN NBioAPI NBioAPI_GetIndexSearchInitInfo(
-                 NBioAPI_HANDLE                    hHandle,
-                 NBioAPI_UINT8                     nStructureType,
-                 NBioAPI_INIT_INFO_PTR             pInitInfo);
-
-   /* Add Funtion */
-   extern NBioAPI_RETURN NBioAPI NBioAPI_AddFIRToIndexSearchDB(
-                 NBioAPI_HANDLE                    hHandle, 
-                 const NBioAPI_INPUT_FIR_PTR       pInputFIR,
-                 NBioAPI_UINT32                    nUserID,
-                 NBioAPI_INDEXSEARCH_SAMPLE_INFO_PTR pSampleInfo);
-
-   /* Remove Functions */
-   extern NBioAPI_RETURN NBioAPI NBioAPI_RemoveDataFromIndexSearchDB(
-                 NBioAPI_HANDLE                    hHandle,
-                 NBioAPI_INDEXSEARCH_FP_INFO_PTR   pFpInfo);
-   extern NBioAPI_RETURN NBioAPI NBioAPI_RemoveUserFromIndexSearchDB(
-                 NBioAPI_HANDLE                    hHandle,
-                 NBioAPI_UINT32                    nUserID);
-        
-   /* Searching Funtions */
-   extern NBioAPI_RETURN NBioAPI NBioAPI_IdentifyDataFromIndexSearchDB(
-                 NBioAPI_HANDLE                    hHandle, 
-                 const NBioAPI_INPUT_FIR_PTR       pInputFIR,
-                 NBioAPI_FIR_SECURITY_LEVEL        nSecuLevel,
-                 NBioAPI_INDEXSEARCH_FP_INFO_PTR   pFpInfo,
-                 NBioAPI_INDEXSEARCH_CALLBACK_INFO_PTR_0  pCallbackInfo0);
-   extern NBioAPI_RETURN NBioAPI NBioAPI_IdentifyDataFromIndexSearchDBEx(
-                 NBioAPI_HANDLE                    hHandle, 
-                 const NBioAPI_INPUT_FIR_PTR       pInputFIR,
-                 NBioAPI_FIR_SECURITY_LEVEL        nSecuLevel,
-                 NBioAPI_INDEXSEARCH_FP_INFO_PTR   pFpInfo,
-                 NBioAPI_INDEXSEARCH_CALLBACK_INFO_PTR_0  pCallbackInfo0);
-
-   /* DB Funtions */
-   extern NBioAPI_RETURN NBioAPI NBioAPI_ClearIndexSearchDB(NBioAPI_HANDLE hHandle);
-
-   extern NBioAPI_RETURN NBioAPI NBioAPI_SaveIndexSearchDBToFile(
-                 NBioAPI_HANDLE                    hHandle, 
-                 const NBioAPI_CHAR*               szFilepath);
-   extern NBioAPI_RETURN NBioAPI NBioAPI_LoadIndexSearchDBFromFile(
-                 NBioAPI_HANDLE                    hHandle, 
-                 const NBioAPI_CHAR*               szFilepath);
-
-   /* Check Functions */
-   extern NBioAPI_RETURN NBioAPI NBioAPI_GetDataCountFromIndexSearchDB(
-                 NBioAPI_HANDLE                    hHandle, 
-                 NBioAPI_UINT32*                   pDataCount);
-   extern NBioAPI_RETURN NBioAPI NBioAPI_CheckDataExistFromIndexSearchDB(
-                 NBioAPI_HANDLE                    hHandle, 
-                 NBioAPI_INDEXSEARCH_FP_INFO_PTR   pFpInfo,
-                 NBioAPI_BOOL*                     pExist);
+  
