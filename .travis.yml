@@ -6,11 +6,17 @@ python:
   - "3.4"
   - "3.3"
   - "2.7"
-  - "2.6"
-  - "pypy"
+#  - "2.6"
+#  - "pypy"
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -r requirements.txt
+install:
+  - sudo apt-add-repository ppa:teward/swig3.0 --yes
+  - sudo apt-get update
+  - sudo apt-get install swig3.0
+  - sudo ln -s -v /usr/bin/swig3.0 /usr/bin/swig
+#  - pip install -r requirements.txt
 
 # command to run tests, e.g. python setup.py test
-script: python setup.py test
+#script: python setup.py test
+script: make dist
