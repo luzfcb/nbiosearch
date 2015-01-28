@@ -42,3 +42,12 @@ and libNBioBSP.so, NBioBSP.dll, NBioBSPCOM.cab, NBioBSPCOM.dll, NImgConv.dll, NS
 
 
 `nbiosearch` was written by `Fabio C. Barrionuevo da Luz <bnafta@gmail.com>`_.
+
+SWIG: Simplified Wrapper and Interface Generator
+------------------------------------------------
+
+http://www.ittc.ku.edu/kusp/kusp_docs/kusp_swig_guide/index.html
+
+http://www.swig.org/tutorial.html
+
+http://www.swig.org/Doc1.3/Python.html
