@@ -35,6 +35,7 @@ elif '32' in PLATFORM_ARCHITECTURE and 'Windows' in PLATFORM_SYSTEM:
 # nitgen_include_dirs=["/usr/local/NITGEN/eNBSP/include"]
 nitgen_libraries = ["pthread", "NBioBSP"]
 #
+swg_paran = '-I%s' % nitgen_headers_include_dirs[0]
 setup(
     name="nbiosearch",
     version="0.1.0",
@@ -50,7 +51,7 @@ setup(
 
     packages=find_packages(),
 
-    install_requires=['Cython'],
+    #install_requires=['Cython'],
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Programming Language :: Python',
@@ -59,6 +60,9 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
     ],
+      ext_modules=[Extension('_nbiosearch2', ['nbiosearch2.i'],
+                             swig_opts=['-modern', swg_paran])],
+      py_modules=['nbiosearch2'],    
     # ext_modules=[
     #     Extension("nbiosearch/_bsp_search", ["nbiosearch/bsp_search.c"],
     #               include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries),
