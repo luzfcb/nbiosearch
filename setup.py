@@ -33,18 +33,30 @@ nitgen_headers_include_dirs = [ENBSP_HEADERS_INCLUDE_DIR]
 PLATFORM_SYSTEM = platform.system()
 PLATFORM_ARCHITECTURE = platform.architecture()[0]
 
+nitgen_dinamic_library = []
+
 if 'Linux' in PLATFORM_SYSTEM:
     if '64' in PLATFORM_ARCHITECTURE:
         nitgen_binary_library_path = os.path.join(ENBSP_SHARED_LIBS_DIR, 'x64')
+        nitgen_dinamic_library = [os.path.join(nitgen_binary_library_path, 'libNBioBSP.so')]
     elif '32' in PLATFORM_ARCHITECTURE:
         nitgen_binary_library_path = os.path.join(ENBSP_SHARED_LIBS_DIR, 'x32')
+        nitgen_dinamic_library = [os.path.join(nitgen_binary_library_path, 'libNBioBSP.so')]
     else:
         print('PLATFORM_ARCHITECTURE does not detected')
 elif 'Windows' in PLATFORM_SYSTEM:
     if '64' in PLATFORM_ARCHITECTURE:
         nitgen_binary_library_path = os.path.join(ENBSP_SHARED_LIBS_DIR, 'win32')
+        nitgen_dinamic_library = [
+            os.path.join(nitgen_binary_library_path, 'NSearch.dll'),
+            os.path.join(nitgen_binary_library_path, 'NBioBSP.dll'),
+            ]
     elif '32' in PLATFORM_ARCHITECTURE:
         nitgen_binary_library_path = os.path.join(ENBSP_SHARED_LIBS_DIR, 'win32')
+        nitgen_dinamic_library = [
+            os.path.join(nitgen_binary_library_path, 'NSearch.dll'),
+            os.path.join(nitgen_binary_library_path, 'NBioBSP.dll'),
+            ]
     else:
         print('PLATFORM_ARCHITECTURE does not detected')
 else:
@@ -55,10 +67,11 @@ nitgen_headers_include_dirs.append(nitgen_binary_library_path)
 
 nitgen_libraries = ["pthread", "NBioBSP"]
 
-swig_opts = ['-I{0} -L{0}'.format(os.path.abspath(lib_path)) for lib_path in nitgen_headers_include_dirs]
+swig_opts = ['-I".{0}" -L".{0}"'.format(lib_path) for lib_path in nitgen_headers_include_dirs]
 swig_opts.append('-includeall')
 swig_opts.append('-modern')
 swig_opts.append('-Wall')
+swig_opts.append('-MM')
 
 
 
@@ -73,15 +86,30 @@ swig_opts.append('-Wall')
 
 ext_modules = [
     Extension('_NBioAPI_Basic', [os.path.join(BASE_DIR, 'nbiosearch', 'NBioAPI_Basic.i')], swig_opts=swig_opts,
-              include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries),
+              include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries,
+              library_dirs=nitgen_headers_include_dirs,
+              extra_link_args=nitgen_dinamic_library
+    ),
     Extension('_NBioAPI_Error', [os.path.join(BASE_DIR, 'nbiosearch', 'NBioAPI_Error.i')], swig_opts=swig_opts,
-              include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries),
+              include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries,
+              library_dirs=nitgen_headers_include_dirs,
+              extra_link_args=nitgen_dinamic_library
+    ),
     Extension('_NBioAPI_Type', [os.path.join(BASE_DIR, 'nbiosearch', 'NBioAPI_Type.i')], swig_opts=swig_opts,
-              include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries),
+              include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries,
+              library_dirs=nitgen_headers_include_dirs,
+              extra_link_args=nitgen_dinamic_library
+    ),
     Extension('_NBioAPI_IndexSearchType', [os.path.join(BASE_DIR, 'nbiosearch', 'NBioAPI_IndexSearchType.i')],
-              swig_opts=swig_opts, include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries),
+              swig_opts=swig_opts, include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries,
+              library_dirs=nitgen_headers_include_dirs,
+              extra_link_args=nitgen_dinamic_library
+    ),
     Extension('_NBioAPI_IndexSearch', [os.path.join(BASE_DIR, 'nbiosearch', 'NBioAPI_IndexSearch.i')],
-              swig_opts=swig_opts, include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries)
+              swig_opts=swig_opts, include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries,
+              library_dirs=nitgen_headers_include_dirs,
+              extra_link_args=nitgen_dinamic_library
+    )
 ]
 
 setup(
