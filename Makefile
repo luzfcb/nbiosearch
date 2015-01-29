@@ -67,3 +67,8 @@ dist: clean
 	python setup.py sdist
 	python setup.py bdist_wheel
 	ls -l dist
+	pip uninstall nbiosearch --yes
+	pip install dist/nbiosearch-0.1.0-cp27-none-linux_x86_64.whl
+	cd ..
+	cd ..
+	python -c "from nbiosearch import NBioAPI_IndexSearch; print(dir(NBioAPI_IndexSearch))"
