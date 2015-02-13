@@ -1,0 +1,482 @@
+ctypedef signed char NBioAPI_SINT8
+
+ctypedef unsigned char NBioAPI_UINT8
+
+ctypedef short NBioAPI_SINT16
+
+ctypedef unsigned short NBioAPI_UINT16
+
+ctypedef int NBioAPI_SINT32
+
+ctypedef unsigned int NBioAPI_UINT32
+
+ctypedef long long NBioAPI_SINT64
+
+ctypedef unsigned long long NBioAPI_UINT64
+
+ctypedef long NBioAPI_SLONG
+
+ctypedef unsigned long NBioAPI_ULONG
+
+ctypedef double NBioAPI_DOUBLE
+
+ctypedef float NBioAPI_FLOAT
+
+ctypedef long NBioAPI_SINT
+
+ctypedef unsigned long NBioAPI_UINT
+
+ctypedef int NBioAPI_BOOL
+
+ctypedef char NBioAPI_CHAR
+
+ctypedef int NBioAPI_WCHAR
+
+ctypedef unsigned char NBioAPI_BYTE
+
+ctypedef NBioAPI_CHAR *NBioAPI_CHAR_PTR
+
+ctypedef NBioAPI_WCHAR *NBioAPI_WCHAR_PTR
+
+ctypedef NBioAPI_BYTE *NBioAPI_BYTE_PTR
+
+ctypedef NBioAPI_CHAR_PTR LPSTR
+
+ctypedef NBioAPI_CHAR CHAR
+
+ctypedef const char *LPCTSTR
+
+ctypedef void *HINSTANCE
+
+ctypedef NBioAPI_UINT32 NBioAPI_HWND
+
+ctypedef void *NBioAPI_VOID_PTR
+
+ctypedef NBioAPI_UINT16 NBioAPI_FIR_VERSION
+
+cdef struct nbioapi_version:
+    NBioAPI_UINT32 Major
+    NBioAPI_UINT32 Minor
+
+ctypedef nbioapi_version NBioAPI_VERSION
+
+ctypedef nbioapi_version *NBioAPI_VERSION_PTR
+
+ctypedef NBioAPI_UINT16 NBioAPI_FIR_DATA_TYPE
+
+ctypedef NBioAPI_UINT16 NBioAPI_FIR_PURPOSE
+
+ctypedef NBioAPI_UINT16 NBioAPI_FIR_QUALITY
+
+cdef struct nbioapi_fir_header:
+    NBioAPI_UINT32 Length
+    NBioAPI_UINT32 DataLength
+    NBioAPI_FIR_VERSION Version
+    NBioAPI_FIR_DATA_TYPE DataType
+    NBioAPI_FIR_PURPOSE Purpose
+    NBioAPI_FIR_QUALITY Quality
+    NBioAPI_UINT32 Reserved
+
+ctypedef nbioapi_fir_header NBioAPI_FIR_HEADER
+
+ctypedef nbioapi_fir_header *NBioAPI_FIR_HEADER_PTR
+
+ctypedef NBioAPI_UINT8 NBioAPI_FIR_DATA
+
+ctypedef NBioAPI_UINT32 NBioAPI_FIR_FORMAT
+
+cdef struct nbioapi_fir:
+    NBioAPI_FIR_FORMAT Format
+    NBioAPI_FIR_HEADER Header
+    NBioAPI_FIR_DATA *Data
+
+ctypedef nbioapi_fir NBioAPI_FIR
+
+ctypedef nbioapi_fir *NBioAPI_FIR_PTR
+
+cdef struct nbioapi_fir_payload:
+    NBioAPI_UINT32 Length
+    NBioAPI_UINT8 *Data
+
+ctypedef nbioapi_fir_payload NBioAPI_FIR_PAYLOAD
+
+ctypedef nbioapi_fir_payload *NBioAPI_FIR_PAYLOAD_PTR
+
+ctypedef NBioAPI_UINT NBioAPI_HANDLE
+
+ctypedef NBioAPI_UINT *NBioAPI_HANDLE_PTR
+
+ctypedef NBioAPI_UINT NBioAPI_FIR_HANDLE
+
+ctypedef NBioAPI_UINT *NBioAPI_FIR_HANDLE_PTR
+
+ctypedef NBioAPI_UINT32 NBioAPI_FIR_SECURITY_LEVEL
+
+cdef struct nbioapi_init_info_0:
+    NBioAPI_UINT32 StructureType
+    NBioAPI_UINT32 MaxFingersForEnroll
+    NBioAPI_UINT32 SamplesPerFinger
+    NBioAPI_UINT32 DefaultTimeout
+    NBioAPI_UINT32 EnrollImageQuality
+    NBioAPI_UINT32 VerifyImageQuality
+    NBioAPI_UINT32 IdentifyImageQuality
+    NBioAPI_FIR_SECURITY_LEVEL SecurityLevel
+
+ctypedef nbioapi_init_info_0 NBioAPI_INIT_INFO_0
+
+ctypedef nbioapi_init_info_0 *NBioAPI_INIT_INFO_PTR_0
+
+cdef struct nbioapi_init_info_1:
+    NBioAPI_UINT32 StructureType
+    NBioAPI_FIR_SECURITY_LEVEL SecurityLevelForEnroll
+    NBioAPI_UINT32 NecessaryEnrollNum
+    NBioAPI_UINT32 Reserved1
+    NBioAPI_UINT32 Reserved2
+    NBioAPI_UINT32 Reserved3
+    NBioAPI_UINT32 Reserved4
+    NBioAPI_UINT32 Reserved5
+    NBioAPI_UINT32 Reserved6
+    NBioAPI_UINT32 Reserved7
+
+ctypedef nbioapi_init_info_1 NBioAPI_INIT_INFO_1
+
+ctypedef nbioapi_init_info_1 *NBioAPI_INIT_INFO_PTR_1
+
+ctypedef NBioAPI_VOID_PTR NBioAPI_INIT_INFO_PTR
+
+cdef struct nbioapi_device_info_0:
+    NBioAPI_UINT32 StructureType
+    NBioAPI_UINT32 ImageWidth
+    NBioAPI_UINT32 ImageHeight
+    NBioAPI_UINT32 Brightness
+    NBioAPI_UINT32 Contrast
+    NBioAPI_UINT32 Gain
+
+ctypedef nbioapi_device_info_0 NBioAPI_DEVICE_INFO_0
+
+ctypedef nbioapi_device_info_0 *NBioAPI_DEVICE_INFO_PTR_0
+
+ctypedef NBioAPI_VOID_PTR NBioAPI_DEVICE_INFO_PTR
+
+ctypedef NBioAPI_UINT16 NBioAPI_DEVICE_ID
+
+ctypedef NBioAPI_UINT8 NBioAPI_DEVICE_NAME
+
+ctypedef NBioAPI_UINT32 NBioAPI_RETURN
+
+cdef struct nbioapi_fir_textencode:
+    NBioAPI_BOOL IsWideChar
+    NBioAPI_CHAR_PTR TextFIR
+
+ctypedef nbioapi_fir_textencode NBioAPI_FIR_TEXTENCODE
+
+ctypedef nbioapi_fir_textencode *NBioAPI_FIR_TEXTENCODE_PTR
+
+ctypedef NBioAPI_UINT8 NBioAPI_INPUT_FIR_FORM
+
+cdef union __nbioapi_input_fir_InputFIR:
+    NBioAPI_FIR_HANDLE_PTR FIRinBSP
+    NBioAPI_VOID_PTR FIR
+    NBioAPI_FIR_TEXTENCODE_PTR TextFIR
+
+ctypedef __nbioapi_input_fir_InputFIR __nbioapi_input_fir_InputFIR_t
+
+cdef struct nbioapi_input_fir:
+    NBioAPI_INPUT_FIR_FORM Form
+    __nbioapi_input_fir_InputFIR_t InputFIR
+
+ctypedef nbioapi_input_fir NBioAPI_INPUT_FIR
+
+ctypedef nbioapi_input_fir *NBioAPI_INPUT_FIR_PTR
+
+ctypedef NBioAPI_UINT32 NBioAPI_WINDOW_STYLE
+
+cdef struct nbioapi_window_callback_param_ex:
+    NBioAPI_UINT32 dwDeviceError
+    NBioAPI_UINT32 dwReserved[8]
+    NBioAPI_VOID_PTR lpReserved
+
+ctypedef nbioapi_window_callback_param_ex NBioAPI_WINDOW_CALLBACK_PARAM_EX
+
+ctypedef nbioapi_window_callback_param_ex *NBioAPI_WINDOW_CALLBACK_PARAM_PTR_EX
+
+cdef struct nbioapi_window_callback_param_0:
+    NBioAPI_UINT32 dwQuality
+    NBioAPI_UINT8 *lpImageBuf
+    NBioAPI_WINDOW_CALLBACK_PARAM_PTR_EX pParamEx
+
+ctypedef nbioapi_window_callback_param_0 NBioAPI_WINDOW_CALLBACK_PARAM_0
+
+ctypedef nbioapi_window_callback_param_0 *NBioAPI_WINDOW_CALLBACK_PARAM_PTR_0
+
+cdef struct nbioapi_window_callback_param_1_1:
+    NBioAPI_UINT32 dwStartTime
+    NBioAPI_UINT32 dwCapTime
+    NBioAPI_UINT32 dwEndTime
+    NBioAPI_UINT32 Reserved1
+    NBioAPI_UINT32 Reserved2
+    NBioAPI_UINT32 Reserved3
+    NBioAPI_UINT32 Reserved4
+    NBioAPI_UINT32 Reserved5
+    NBioAPI_UINT32 Reserved6
+    NBioAPI_UINT32 Reserved7
+    NBioAPI_UINT32 Reserved8
+    NBioAPI_VOID_PTR lpReserved
+
+ctypedef nbioapi_window_callback_param_1_1 NBioAPI_WINDOW_CALLBACK_PARAM_1_1
+
+ctypedef nbioapi_window_callback_param_1_1 *NBioAPI_WINDOW_CALLBACK_PARAM_PTR_1_1
+
+cdef struct nbioapi_window_callback_param_1:
+    NBioAPI_UINT32 dwResult
+    NBioAPI_WINDOW_CALLBACK_PARAM_PTR_1_1 lpCBParam1_1
+
+ctypedef nbioapi_window_callback_param_1 NBioAPI_WINDOW_CALLBACK_PARAM_1
+
+ctypedef nbioapi_window_callback_param_1 *NBioAPI_WINDOW_CALLBACK_PARAM_PTR_1
+
+ctypedef unsigned int (*NBioAPI_WINDOW_CALLBACK_0)(nbioapi_window_callback_param_0 *, void *)
+
+ctypedef unsigned int = *NBioAPI_WINDOW_CALLBACK_1)(nbioapi_window_callback_param_1 *, void *)
+
+cdef struct nbioapi_callback_info_0:
+    NBioAPI_UINT32 CallBackType
+    NBioAPI_WINDOW_CALLBACK_0 CallBackFunction
+    NBioAPI_VOID_PTR UserCallBackParam
+
+ctypedef nbioapi_callback_info_0 NBioAPI_CALLBACK_INFO_0
+
+ctypedef nbioapi_callback_info_0 *NBioAPI_CALLBACK_INFO_PTR_0
+
+cdef struct nbioapi_callback_info_1:
+    NBioAPI_UINT32 CallBackType
+    NBioAPI_WINDOW_CALLBACK_1 CallBackFunction
+    NBioAPI_VOID_PTR UserCallBackParam
+
+ctypedef nbioapi_callback_info_1 NBioAPI_CALLBACK_INFO_1
+
+ctypedef nbioapi_callback_info_1 *NBioAPI_CALLBACK_INFO_PTR_1
+
+cdef struct nbioapi_window_option_2:
+    NBioAPI_UINT8 FPForeColor[3]
+    NBioAPI_UINT8 FPBackColor[3]
+    NBioAPI_UINT8 DisableFingerForEnroll[10]
+    NBioAPI_UINT32 Reserved1[4]
+    NBioAPI_VOID_PTR Reserved2
+
+ctypedef nbioapi_window_option_2 NBioAPI_WINDOW_OPTION_2
+
+ctypedef nbioapi_window_option_2 *NBioAPI_WINDOW_OPTION_PTR_2
+
+cdef struct nbioapi_window_option:
+    NBioAPI_UINT32 Length
+    NBioAPI_WINDOW_STYLE WindowStyle
+    NBioAPI_HWND ParentWnd
+    NBioAPI_HWND FingerWnd
+    NBioAPI_CALLBACK_INFO_0 CaptureCallBackInfo
+    NBioAPI_CALLBACK_INFO_1 FinishCallBackInfo
+    NBioAPI_CHAR_PTR CaptionMsg
+    NBioAPI_CHAR_PTR CancelMsg
+    NBioAPI_WINDOW_OPTION_PTR_2 Option2
+
+ctypedef nbioapi_window_option NBioAPI_WINDOW_OPTION
+
+ctypedef nbioapi_window_option *NBioAPI_WINDOW_OPTION_PTR
+
+cdef enum MINCONV_DATA_TYPE:
+    MINCONV_TYPE_FDP
+    MINCONV_TYPE_FDU
+    MINCONV_TYPE_FDA
+    MINCONV_TYPE_OLD_FDA
+    MINCONV_TYPE_FDAC
+    MINCONV_TYPE_FIM10_HV
+    MINCONV_TYPE_FIM10_LV
+    MINCONV_TYPE_FIM01_HV
+    MINCONV_TYPE_FIM01_HD
+    MINCONV_TYPE_FELICA
+    MINCONV_TYPE_EXTENSION
+    MINCONV_TYPE_TEMPLATESIZE_32
+    MINCONV_TYPE_TEMPLATESIZE_48
+    MINCONV_TYPE_TEMPLATESIZE_64
+    MINCONV_TYPE_TEMPLATESIZE_80
+    MINCONV_TYPE_TEMPLATESIZE_96
+    MINCONV_TYPE_TEMPLATESIZE_112
+    MINCONV_TYPE_TEMPLATESIZE_128
+    MINCONV_TYPE_TEMPLATESIZE_144
+    MINCONV_TYPE_TEMPLATESIZE_160
+    MINCONV_TYPE_TEMPLATESIZE_176
+    MINCONV_TYPE_TEMPLATESIZE_192
+    MINCONV_TYPE_TEMPLATESIZE_208
+    MINCONV_TYPE_TEMPLATESIZE_224
+    MINCONV_TYPE_TEMPLATESIZE_240
+    MINCONV_TYPE_TEMPLATESIZE_256
+    MINCONV_TYPE_TEMPLATESIZE_272
+    MINCONV_TYPE_TEMPLATESIZE_288
+    MINCONV_TYPE_TEMPLATESIZE_304
+    MINCONV_TYPE_TEMPLATESIZE_320
+    MINCONV_TYPE_TEMPLATESIZE_336
+    MINCONV_TYPE_TEMPLATESIZE_352
+    MINCONV_TYPE_TEMPLATESIZE_368
+    MINCONV_TYPE_TEMPLATESIZE_384
+    MINCONV_TYPE_TEMPLATESIZE_400
+    MINCONV_TYPE_ANSI
+    MINCONV_TYPE_ISO
+    MINCONV_TYPE_MAX
+
+ctypedef NBioAPI_UINT8 NBioAPI_FINGER_ID
+
+cdef struct nbioapi_match_option_0:
+    NBioAPI_UINT8 StructureType
+    NBioAPI_UINT8 NoMatchFinger[11]
+    NBioAPI_UINT32 Reserved[8]
+
+ctypedef nbioapi_match_option_0 NBioAPI_MATCH_OPTION_0
+
+ctypedef nbioapi_match_option_0 *NBioAPI_MATCH_OPTION_PTR_0
+
+ctypedef NBioAPI_VOID_PTR NBioAPI_MATCH_OPTION_PTR
+
+ctypedef NBioAPI_UINT8 NBioAPI_QUALITY
+
+cdef struct nbioapi_quality_info_0:
+    NBioAPI_UINT8 StructureType
+    NBioAPI_QUALITY Quality[11][2]
+    NBioAPI_UINT32 Reserved[4]
+
+ctypedef nbioapi_quality_info_0 NBioAPI_QUALITY_INFO_0
+
+ctypedef nbioapi_quality_info_0 *NBioAPI_QUALITY_INFO_PTR_0
+
+cdef struct nbioapi_quality_info_1:
+    NBioAPI_UINT8 StructureType
+    NBioAPI_UINT8 Quality[11][2]
+    NBioAPI_UINT32 Reserved[4]
+
+ctypedef nbioapi_quality_info_1 NBioAPI_QUALITY_INFO_1
+
+ctypedef nbioapi_quality_info_1 *NBioAPI_QUALITY_INFO_PTR_1
+
+ctypedef NBioAPI_VOID_PTR NBioAPI_QUALITY_INFO_PTR
+
+cdef struct nbioapi_deviceinfoex:
+    NBioAPI_DEVICE_ID NameID
+    NBioAPI_UINT16 Instance
+    NBioAPI_CHAR Name[64]
+    NBioAPI_CHAR Description[256]
+    NBioAPI_CHAR Dll[64]
+    NBioAPI_CHAR Sys[64]
+    NBioAPI_UINT32 AutoOn
+    NBioAPI_UINT32 Brightness
+    NBioAPI_UINT32 Contrast
+    NBioAPI_UINT32 Gain
+    NBioAPI_UINT32 Reserved[8]
+
+ctypedef nbioapi_deviceinfoex NBioAPI_DEVICE_INFO_EX
+
+ctypedef nbioapi_deviceinfoex *NBioAPI_DEVICE_INFO_EX_PTR
+
+
+NBioAPIERROR_BASE_GENERAL               = 0x0000
+NBioAPIERROR_BASE_DEVICE                = 0x0100
+NBioAPIERROR_BASE_UI                    = 0x0200
+NBioAPIERROR_BASE_NSEARCH               = 0x0300
+NBioAPIERROR_BASE_IMGCONV               = 0x0400
+NBioAPIERROR_BASE_INDEXSEARCH           = 0x0500
+
+NBioAPIERROR_NONE                       = 0
+NBioAPIERROR_INVALID_HANDLE             = NBioAPIERROR_BASE_GENERAL + 0x01
+NBioAPIERROR_INVALID_POINTER            = NBioAPIERROR_BASE_GENERAL + 0x02
+NBioAPIERROR_INVALID_TYPE               = NBioAPIERROR_BASE_GENERAL + 0x03
+NBioAPIERROR_FUNCTION_FAIL              = NBioAPIERROR_BASE_GENERAL + 0x04
+NBioAPIERROR_STRUCTTYPE_NOT_MATCHED     = NBioAPIERROR_BASE_GENERAL + 0x05
+NBioAPIERROR_ALREADY_PROCESSED          = NBioAPIERROR_BASE_GENERAL + 0x06
+NBioAPIERROR_EXTRACTION_OPEN_FAIL       = NBioAPIERROR_BASE_GENERAL + 0x07
+NBioAPIERROR_VERIFICATION_OPEN_FAIL     = NBioAPIERROR_BASE_GENERAL + 0x08
+NBioAPIERROR_DATA_PROCESS_FAIL          = NBioAPIERROR_BASE_GENERAL + 0x09
+NBioAPIERROR_MUST_BE_PROCESSED_DATA     = NBioAPIERROR_BASE_GENERAL + 0x0a
+NBioAPIERROR_INTERNAL_CHECKSUM_FAIL     = NBioAPIERROR_BASE_GENERAL + 0x0b
+NBioAPIERROR_ENCRYPTED_DATA_ERROR       = NBioAPIERROR_BASE_GENERAL + 0x0c
+NBioAPIERROR_UNKNOWN_FORMAT             = NBioAPIERROR_BASE_GENERAL + 0x0d
+NBioAPIERROR_UNKNOWN_VERSION            = NBioAPIERROR_BASE_GENERAL + 0x0e
+NBioAPIERROR_VALIDITY_FAIL              = NBioAPIERROR_BASE_GENERAL + 0x0f
+
+NBioAPIERROR_INIT_MAXFINGER             = NBioAPIERROR_BASE_GENERAL + 0x10
+NBioAPIERROR_INIT_SAMPLESPERFINGER      = NBioAPIERROR_BASE_GENERAL + 0x11
+NBioAPIERROR_INIT_ENROLLQUALITY         = NBioAPIERROR_BASE_GENERAL + 0x12
+NBioAPIERROR_INIT_VERIFYQUALITY         = NBioAPIERROR_BASE_GENERAL + 0x13
+NBioAPIERROR_INIT_IDENTIFYQUALITY       = NBioAPIERROR_BASE_GENERAL + 0x14
+NBioAPIERROR_INIT_SECURITYLEVEL         = NBioAPIERROR_BASE_GENERAL + 0x15
+
+NBioAPIERROR_INVALID_MINSIZE            = NBioAPIERROR_BASE_GENERAL + 0x16
+NBioAPIERROR_INVALID_TEMPLATE           = NBioAPIERROR_BASE_GENERAL + 0x17
+
+NBioAPIERROR_EXPIRED_VERSION            = NBioAPIERROR_BASE_GENERAL + 0x18
+NBioAPIERROR_INVALID_SAMPLESPERFINGER   = NBioAPIERROR_BASE_GENERAL + 0x19
+NBioAPIERROR_UNKNOWN_INPUTFORMAT        = NBioAPIERROR_BASE_GENERAL + 0x1a
+
+NBioAPIERROR_INIT_ENROLLSECURITYLEVEL   = NBioAPIERROR_BASE_GENERAL + 0x1b
+NBioAPIERROR_INIT_NECESSARYENROLLNUM    = NBioAPIERROR_BASE_GENERAL + 0x1c
+NBioAPIERROR_INIT_RESERVED1             = NBioAPIERROR_BASE_GENERAL + 0x1d
+NBioAPIERROR_INIT_RESERVED2             = NBioAPIERROR_BASE_GENERAL + 0x1e
+NBioAPIERROR_INIT_RESERVED3             = NBioAPIERROR_BASE_GENERAL + 0x1f
+NBioAPIERROR_INIT_RESERVED4             = NBioAPIERROR_BASE_GENERAL + 0x20
+NBioAPIERROR_INIT_RESERVED5             = NBioAPIERROR_BASE_GENERAL + 0x21
+NBioAPIERROR_INIT_RESERVED6             = NBioAPIERROR_BASE_GENERAL + 0x22
+NBioAPIERROR_INIT_RESERVED7             = NBioAPIERROR_BASE_GENERAL + 0x23
+NBioAPIERROR_OUT_OF_MEMORY              = NBioAPIERROR_BASE_GENERAL + 0x24
+
+NBioAPIERROR_DEVICE_OPEN_FAIL           = NBioAPIERROR_BASE_DEVICE + 0x01
+NBioAPIERROR_INVALID_DEVICE_ID          = NBioAPIERROR_BASE_DEVICE + 0x02
+NBioAPIERROR_WRONG_DEVICE_ID            = NBioAPIERROR_BASE_DEVICE + 0x03
+NBioAPIERROR_DEVICE_ALREADY_OPENED      = NBioAPIERROR_BASE_DEVICE + 0x04
+NBioAPIERROR_DEVICE_NOT_OPENED          = NBioAPIERROR_BASE_DEVICE + 0x05
+NBioAPIERROR_DEVICE_BRIGHTNESS          = NBioAPIERROR_BASE_DEVICE + 0x06
+NBioAPIERROR_DEVICE_CONTRAST            = NBioAPIERROR_BASE_DEVICE + 0x07
+NBioAPIERROR_DEVICE_GAIN                = NBioAPIERROR_BASE_DEVICE + 0x08
+NBioAPIERROR_LOWVERSION_DRIVER          = NBioAPIERROR_BASE_DEVICE + 0x09
+NBioAPIERROR_DEVICE_INIT_FAIL           = NBioAPIERROR_BASE_DEVICE + 0x0a
+NBioAPIERROR_DEVICE_LOST_DEVICE         = NBioAPIERROR_BASE_DEVICE + 0x0b
+NBioAPIERROR_DEVICE_DLL_LOAD_FAIL       = NBioAPIERROR_BASE_DEVICE + 0x0c
+NBioAPIERROR_DEVICE_MAKE_INSTANCE_FAIL  = NBioAPIERROR_BASE_DEVICE + 0x0d
+NBioAPIERROR_DEVICE_DLL_GET_PROC_FAIL   = NBioAPIERROR_BASE_DEVICE + 0x0e
+NBioAPIERROR_DEVICE_IO_CONTROL_FAIL     = NBioAPIERROR_BASE_DEVICE + 0x0f
+
+NBioAPIERROR_USER_CANCEL                = NBioAPIERROR_BASE_UI + 0x01
+NBioAPIERROR_USER_BACK                  = NBioAPIERROR_BASE_UI + 0x02
+NBioAPIERROR_CAPTURE_TIMEOUT            = NBioAPIERROR_BASE_UI + 0x03
+NBioAPIERROR_CAPTURE_FAKE_SUSPICIOUS    = NBioAPIERROR_BASE_UI + 0x04
+NBioAPIERROR_ENROLL_EVENT_PLACE         = NBioAPIERROR_BASE_UI + 0x05
+NBioAPIERROR_ENROLL_EVENT_HOLD          = NBioAPIERROR_BASE_UI + 0x06
+NBioAPIERROR_ENROLL_EVENT_REMOVE        = NBioAPIERROR_BASE_UI + 0x07
+NBioAPIERROR_ENROLL_EVENT_PLACE_AGAIN   = NBioAPIERROR_BASE_UI + 0x08
+NBioAPIERROR_ENROLL_EVENT_EXTRACT       = NBioAPIERROR_BASE_UI + 0x09
+NBioAPIERROR_ENROLL_EVENT_MATCH_FAILED  = NBioAPIERROR_BASE_UI + 0x0a
+
+NBioAPIERROR_INIT_MAXCANDIDATE          = NBioAPIERROR_BASE_NSEARCH + 0x01
+NBioAPIERROR_NSEARCH_OPEN_FAIL          = NBioAPIERROR_BASE_NSEARCH + 0x02
+NBioAPIERROR_NSEARCH_INIT_FAIL          = NBioAPIERROR_BASE_NSEARCH + 0x03
+NBioAPIERROR_NSEARCH_MEM_OVERFLOW       = NBioAPIERROR_BASE_NSEARCH + 0x04
+NBioAPIERROR_NSEARCH_SAVE_DB            = NBioAPIERROR_BASE_NSEARCH + 0x05
+NBioAPIERROR_NSEARCH_LOAD_DB            = NBioAPIERROR_BASE_NSEARCH + 0x06
+NBioAPIERROR_NSEARCH_INVALD_TEMPLATE    = NBioAPIERROR_BASE_NSEARCH + 0x07
+NBioAPIERROR_NSEARCH_OVER_LIMIT         = NBioAPIERROR_BASE_NSEARCH + 0x08
+NBioAPIERROR_NSEARCH_IDENTIFY_FAIL      = NBioAPIERROR_BASE_NSEARCH + 0x09
+NBioAPIERROR_NSEARCH_LICENSE_LOAD       = NBioAPIERROR_BASE_NSEARCH + 0x0a
+NBioAPIERROR_NSEARCH_LICENSE_KEY        = NBioAPIERROR_BASE_NSEARCH + 0x0b
+NBioAPIERROR_NSEARCH_LICENSE_EXPIRED    = NBioAPIERROR_BASE_NSEARCH + 0x0c
+NBioAPIERROR_NSEARCH_DUPLICATED_ID      = NBioAPIERROR_BASE_NSEARCH + 0x0d
+NBioAPIERROR_NSEARCH_INVALID_ID         = NBioAPIERROR_BASE_NSEARCH + 0x0e
+
+NBioAPIERROR_IMGCONV_INVALID_PARAM      = NBioAPIERROR_BASE_IMGCONV + 0x01
+NBioAPIERROR_IMGCONV_MEMALLOC_FAIL      = NBioAPIERROR_BASE_IMGCONV + 0x02
+NBioAPIERROR_IMGCONV_FILEOPEN_FAIL      = NBioAPIERROR_BASE_IMGCONV + 0x03
+NBioAPIERROR_IMGCONV_FILEWRITE_FAIL     = NBioAPIERROR_BASE_IMGCONV + 0x04
+
+NBioAPIERROR_INIT_PRESEARCHRATE         = NBioAPIERROR_BASE_INDEXSEARCH + 0x01
+NBioAPIERROR_INDEXSEARCH_INIT_FAIL      = NBioAPIERROR_BASE_INDEXSEARCH + 0x02
+NBioAPIERROR_INDEXSEARCH_SAVE_DB        = NBioAPIERROR_BASE_INDEXSEARCH + 0x03
+NBioAPIERROR_INDEXSEARCH_LOAD_DB        = NBioAPIERROR_BASE_INDEXSEARCH + 0x04
+NBioAPIERROR_INDEXSEARCH_UNKNOWN_VER    = NBioAPIERROR_BASE_INDEXSEARCH + 0x05
+NBioAPIERROR_INDEXSEARCH_IDENTIFY_FAIL  = NBioAPIERROR_BASE_INDEXSEARCH + 0x06
+NBioAPIERROR_INDEXSEARCH_DUPLICATED_ID  = NBioAPIERROR_BASE_INDEXSEARCH + 0x07
+NBioAPIERROR_INDEXSEARCH_IDENTIFY_STOP  = NBioAPIERROR_BASE_INDEXSEARCH + 0x08
