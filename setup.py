@@ -1,116 +1,141 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import sys
 
-try:
-    from setuptools import setup, Extension, Distribution
-except ImportError:
-    from distutils.core import setup, Extension, Distribution
-
-import os
-import platform
-
+from distutils.command.build import build
+from setuptools import setup
+from setuptools.command.install import install
 
 readme = open('README.rst').read()
 history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
 requirements = [
     # TODO: put package requirements here
+    "cffi",
 ]
 
 test_requirements = [
     # TODO: put package test requirements here
 ]
 
-BASE_DIR = os.path.dirname(__file__)
-ENBSP_DIR = os.path.join(BASE_DIR, 'nbiosearch', 'eNBSP')
-ENBSP_SHARED_LIBS_DIR = os.path.join(ENBSP_DIR, 'binaries')
-
-ENBSP_HEADERS_INCLUDE_DIR = os.path.join(ENBSP_DIR, 'include')
-
-nitgen_headers_include_dirs = [ENBSP_HEADERS_INCLUDE_DIR]
-
-PLATFORM_SYSTEM = platform.system()
-PLATFORM_ARCHITECTURE = platform.architecture()[0]
-
-nitgen_dinamic_library = []
-
-if 'Linux' in PLATFORM_SYSTEM:
-    if '64' in PLATFORM_ARCHITECTURE:
-        nitgen_binary_library_path = os.path.join(ENBSP_SHARED_LIBS_DIR, 'x64')
-        nitgen_dinamic_library = [os.path.join(nitgen_binary_library_path, 'libNBioBSP.so')]
-    elif '32' in PLATFORM_ARCHITECTURE:
-        nitgen_binary_library_path = os.path.join(ENBSP_SHARED_LIBS_DIR, 'x32')
-        nitgen_dinamic_library = [os.path.join(nitgen_binary_library_path, 'libNBioBSP.so')]
-    else:
-        print('PLATFORM_ARCHITECTURE does not detected')
-elif 'Windows' in PLATFORM_SYSTEM:
-    if '64' in PLATFORM_ARCHITECTURE:
-        nitgen_binary_library_path = os.path.join(ENBSP_SHARED_LIBS_DIR, 'win32')
-        nitgen_dinamic_library = [
-            os.path.join(nitgen_binary_library_path, 'NSearch.dll'),
-            os.path.join(nitgen_binary_library_path, 'NBioBSP.dll'),
-            ]
-    elif '32' in PLATFORM_ARCHITECTURE:
-        nitgen_binary_library_path = os.path.join(ENBSP_SHARED_LIBS_DIR, 'win32')
-        nitgen_dinamic_library = [
-            os.path.join(nitgen_binary_library_path, 'NSearch.dll'),
-            os.path.join(nitgen_binary_library_path, 'NBioBSP.dll'),
-            ]
-    else:
-        print('PLATFORM_ARCHITECTURE does not detected')
-else:
-    print('PLATFORM_SYSTEM does not detected. This library only works with Linux and Windows')
-
-
-nitgen_headers_include_dirs.append(nitgen_binary_library_path)
-
-nitgen_libraries = ["pthread", "NBioBSP"]
-
-swig_opts = ['-I".{0}" -L".{0}"'.format(lib_path) for lib_path in nitgen_headers_include_dirs]
-swig_opts.append('-includeall')
-swig_opts.append('-modern')
-swig_opts.append('-Wall')
-swig_opts.append('-MM')
 
 
 
+SETUP_REQUIRES_ERROR = (
+    "Requested setup command that needs 'setup_requires' while command line "
+    "arguments implied a side effect free command or option."
+)
 
-# swig_interface_names = [
-#    'NBioAPI_Basic.i',
-#    'NBioAPI_Error.i',
-#    'NBioAPI_Type.i'
-#    'NBioAPI_IndexSearchType.i',
-#    'NBioAPI_IndexSearch.i',
-#]
-
-ext_modules = [
-    Extension('_NBioAPI_Basic', [os.path.join(BASE_DIR, 'nbiosearch', 'NBioAPI_Basic.i')], swig_opts=swig_opts,
-              include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries,
-              library_dirs=nitgen_headers_include_dirs,
-              extra_link_args=nitgen_dinamic_library
-    ),
-    Extension('_NBioAPI_Error', [os.path.join(BASE_DIR, 'nbiosearch', 'NBioAPI_Error.i')], swig_opts=swig_opts,
-              include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries,
-              library_dirs=nitgen_headers_include_dirs,
-              extra_link_args=nitgen_dinamic_library
-    ),
-    Extension('_NBioAPI_Type', [os.path.join(BASE_DIR, 'nbiosearch', 'NBioAPI_Type.i')], swig_opts=swig_opts,
-              include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries,
-              library_dirs=nitgen_headers_include_dirs,
-              extra_link_args=nitgen_dinamic_library
-    ),
-    Extension('_NBioAPI_IndexSearchType', [os.path.join(BASE_DIR, 'nbiosearch', 'NBioAPI_IndexSearchType.i')],
-              swig_opts=swig_opts, include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries,
-              library_dirs=nitgen_headers_include_dirs,
-              extra_link_args=nitgen_dinamic_library
-    ),
-    Extension('_NBioAPI_IndexSearch', [os.path.join(BASE_DIR, 'nbiosearch', 'NBioAPI_IndexSearch.i')],
-              swig_opts=swig_opts, include_dirs=nitgen_headers_include_dirs, libraries=nitgen_libraries,
-              library_dirs=nitgen_headers_include_dirs,
-              extra_link_args=nitgen_dinamic_library
-    )
+NO_SETUP_REQUIRES_ARGUMENTS = [
+    "-h", "--help",
+    "-n", "--dry-run",
+    "-q", "--quiet",
+    "-v", "--verbose",
+    "-v", "--version",
+    "--author",
+    "--author-email",
+    "--classifiers",
+    "--contact",
+    "--contact-email",
+    "--description",
+    "--egg-base",
+    "--fullname",
+    "--help-commands",
+    "--keywords",
+    "--licence",
+    "--license",
+    "--long-description",
+    "--maintainer",
+    "--maintainer-email",
+    "--name",
+    "--no-user-cfg",
+    "--obsoletes",
+    "--platforms",
+    "--provides",
+    "--requires",
+    "--url",
+    "clean",
+    "egg_info",
+    "register",
+    "sdist",
+    "upload",
 ]
+
+
+def get_ext_modules():
+    import nbiosearch
+    return [nbiosearch.ffi.verifier.get_extension()]
+
+
+class CFFIBuild(build):
+    def finalize_options(self):
+        self.distribution.ext_modules = get_ext_modules()
+        build.finalize_options(self)
+
+
+class CFFIInstall(install):
+    def finalize_options(self):
+        self.distribution.ext_modules = get_ext_modules()
+        install.finalize_options(self)
+
+
+class DummyCFFIBuild(build):
+    def run(self):
+        raise RuntimeError(SETUP_REQUIRES_ERROR)
+
+
+class DummyCFFIInstall(install):
+    def run(self):
+        raise RuntimeError(SETUP_REQUIRES_ERROR)
+
+
+def keywords_with_side_effects(argv):
+    def is_short_option(argument):
+        """Check whether a command line argument is a short option."""
+        return len(argument) >= 2 and argument[0] == '-' and argument[1] != '-'
+
+    def expand_short_options(argument):
+        """Expand combined short options into canonical short options."""
+        return ('-' + char for char in argument[1:])
+
+    def argument_without_setup_requirements(argv, i):
+        """Check whether a command line argument needs setup requirements."""
+        if argv[i] in NO_SETUP_REQUIRES_ARGUMENTS:
+            # Simple case: An argument which is either an option or a command
+            # which doesn't need setup requirements.
+            return True
+        elif (is_short_option(argv[i]) and
+              all(option in NO_SETUP_REQUIRES_ARGUMENTS
+                  for option in expand_short_options(argv[i]))):
+            # Not so simple case: Combined short options none of which need
+            # setup requirements.
+            return True
+        elif argv[i - 1:i] == ['--egg-base']:
+            # Tricky case: --egg-info takes an argument which should not make
+            # us use setup_requires (defeating the purpose of this code).
+            return True
+        else:
+            return False
+
+    if all(argument_without_setup_requirements(argv, i)
+           for i in range(1, len(argv))):
+        return {
+            "cmdclass": {
+                "build": DummyCFFIBuild,
+                "install": DummyCFFIInstall,
+            }
+        }
+    else:
+        return {
+            "setup_requires": ["cffi"],
+            "cmdclass": {
+                "build": CFFIBuild,
+                "install": CFFIInstall,
+            }
+        }
+
+
 
 setup(
     name='nbiosearch',
@@ -130,6 +155,7 @@ setup(
     license="BSD",
     zip_safe=False,
     keywords='nbiosearch',
+    py_modules=['nbiosearch'],
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
@@ -144,6 +170,6 @@ setup(
     ],
     test_suite='tests',
     tests_require=test_requirements,
-    ext_modules=ext_modules,
-    py_modules=['nbiosearch']
+
+    **keywords_with_side_effects(sys.argv)
 )
