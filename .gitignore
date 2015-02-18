@@ -1,7 +1,7 @@
 *.py[cod]
 
 # C extensions
-*.so
+#*.so
 
 # Packages
 *.egg
@@ -15,8 +15,8 @@ var
 sdist
 develop-eggs
 .installed.cfg
-lib
-lib64
+#lib
+#lib64
 
 # Installer logs
 pip-log.txt
