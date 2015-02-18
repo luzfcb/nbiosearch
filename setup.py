@@ -26,35 +26,47 @@ def read(*names, **kwargs):
 
 PLATFORM_SYSTEM = platform.system()
 PLATFORM_ARCHITECTURE = platform.architecture()[0]
-if 'Windows' in PLATFORM_SYSTEM:
-    nitgen_include_dir = r"D:\Program Files (x86)\NITGEN eNBSP\SDK\inc"
-    #nitgen_include_dir = "D:\\Program Files\\NITGEN eNBSP x64\\SDK\\Inc"
-    nitgen_libraries = ["NBioBSP"]
-    library_dirs = [
-        "D:\\Program Files (x86)\\NITGEN eNBSP\\SDK\\lib",
-        #"D:\\Program Files (x86)\\NITGEN eNBSP\\SDK\\Bin"
-        #"D:\\Program Files\\NITGEN eNBSP x64\\SDK\\Lib\\x64",
-        #"D:\\Program Files\\NITGEN eNBSP x64\\SDK\\Bin\\x64"
-    ]
-
-else:
-
-    nitgen_include_dir = "/usr/local/NITGEN/eNBSP/include"
+BASE_DIR = os.path.dirname(__file__)
+ENBSP_DIR = os.path.join(BASE_DIR, 'src', 'nbiosearch', 'eNBSP')
+ENBSP_SHARED_LIBS_BASE_DIR = os.path.join(ENBSP_DIR, 'binaries')
+ENBSP_HEADERS_INCLUDE_DIR = os.path.join(ENBSP_DIR, 'include')
+nitgen_binary_library_dir = []
+if 'Linux' in PLATFORM_SYSTEM:
     nitgen_libraries = ["pthread", "NBioBSP"]
-    library_dirs = []
+    if '64' in PLATFORM_ARCHITECTURE:
+        nitgen_binary_library_dir = [os.path.join(ENBSP_SHARED_LIBS_BASE_DIR, 'x64')]
+    elif '32' in PLATFORM_ARCHITECTURE:
+        nitgen_binary_library_dir = [os.path.join(ENBSP_SHARED_LIBS_BASE_DIR, 'x32')]
+    else:
+        print('PLATFORM_ARCHITECTURE does not detected')
+elif 'Windows' in PLATFORM_SYSTEM:
+    nitgen_libraries = ["NBioBSP"]
+    if '64' in PLATFORM_ARCHITECTURE:
+        nitgen_binary_library_dir = [
+            os.path.join(ENBSP_SHARED_LIBS_BASE_DIR, 'win32'),
+            os.path.join(ENBSP_SHARED_LIBS_BASE_DIR, 'win32', 'lib')
+        ]
+    elif '32' in PLATFORM_ARCHITECTURE:
+        nitgen_binary_library_dir = [
+            os.path.join(ENBSP_SHARED_LIBS_BASE_DIR, 'win32'),
+            os.path.join(ENBSP_SHARED_LIBS_BASE_DIR, 'win32', 'lib')
+        ]
+    else:
+        print('PLATFORM_ARCHITECTURE does not detected')
+else:
+    print('PLATFORM_SYSTEM does not detected. This library only works with Linux and Windows')
 
-    # ext_modules=[
-    #     Extension("NitgenBSP/_bsp_search", ["NitgenBSP/bsp_search.c"],
-    #               include_dirs=nitgen_include_dirs, libraries=nitgen_libraries),
-    # ]
+
+
+
 
 ext_modules = [
     Extension(
         splitext(relpath(path, 'src').replace(os.sep, '.'))[0],
         sources=[path],
-        include_dirs=[dirname(path), nitgen_include_dir],
+        include_dirs=[dirname(path), ENBSP_HEADERS_INCLUDE_DIR],
         libraries=nitgen_libraries,
-        library_dirs=library_dirs
+        library_dirs=nitgen_binary_library_dir
     )
     for root, _, _ in os.walk('src')
     for path in glob(join(root, '*.c'))
