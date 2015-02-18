@@ -111,6 +111,7 @@ setup(
     ],
     install_requires=[
         # eg: 'aspectlib==1.1.1', 'six>=1.7',
+        'Pillow',
     ],
     extras_require={
         # eg: 'rst': ['docutils>=0.11'],
