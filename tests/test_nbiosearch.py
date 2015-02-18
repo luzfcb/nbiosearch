@@ -1,28 +1,5 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-"""
-test_nbiosearch
-----------------------------------
-
-Tests for `nbiosearch` module.
-"""
-
-import unittest
-
-from nbiosearch import nbiosearch
+from nbiosearch.__main__ import main
 
 
-class TestNbiosearch(unittest.TestCase):
-
-    def setUp(self):
-        pass
-
-    def test_something(self):
-        pass
-
-    def tearDown(self):
-        pass
-
-if __name__ == '__main__':
-    unittest.main()
+def test_main():
+    assert main([]) == 0

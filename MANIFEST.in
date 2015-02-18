@@ -1,12 +1,21 @@
+graft docs
+graft examples
+graft src
+graft ci
+graft tests
+
+include *.komodoproject
+include .bumpversion.cfg
+include .coveragerc
+include .isort.cfg
+include .pylintrc
+
 include AUTHORS.rst
+include CHANGELOG.rst
 include CONTRIBUTING.rst
-include HISTORY.rst
 include LICENSE
 include README.rst
 
-recursive-include nbiosearch *
-recursive-include tests *
-recursive-exclude * __pycache__
-recursive-exclude * *.py[co]
+include tox.ini .travis.yml appveyor.yml
 
-recursive-include docs *.rst conf.py Makefile make.bat
+global-exclude *.py[co] __pycache__ *.so *.pyd

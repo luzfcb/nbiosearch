@@ -1,0 +1,5 @@
+nbiosearch
+=============================
+
+.. automodule:: nbiosearch
+    :members:

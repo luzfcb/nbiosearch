@@ -2,59 +2,72 @@
 nbiosearch
 ===============================
 
-.. image:: https://badge.fury.io/py/nbiosearch.png
-    :target: http://badge.fury.io/py/nbiosearch
+| |docs| |travis| |appveyor| |coveralls| |landscape| |scrutinizer|
+| |version| |downloads| |wheel| |supported-versions| |supported-implementations|
 
-.. image:: https://travis-ci.org/luzfcb/nbiosearch.png?branch=master
-        :target: https://travis-ci.org/luzfcb/nbiosearch
+.. |docs| image:: https://readthedocs.org/projects/nbiosearch/badge/?style=flat
+    :target: https://readthedocs.org/projects/nbiosearch
+    :alt: Documentation Status
 
-.. image:: https://pypip.in/d/nbiosearch/badge.png
-        :target: https://pypi.python.org/pypi/nbiosearch
+.. |travis| image:: http://img.shields.io/travis/luzfcb/nbiosearch/master.png?style=flat
+    :alt: Travis-CI Build Status
+    :target: https://travis-ci.org/luzfcb/nbiosearch
 
+.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/github/luzfcb/nbiosearch?branch=master
+    :alt: AppVeyor Build Status
+    :target: https://ci.appveyor.com/project/luzfcb/nbiosearch
+
+.. |coveralls| image:: http://img.shields.io/coveralls/luzfcb/nbiosearch/master.png?style=flat
+    :alt: Coverage Status
+    :target: https://coveralls.io/r/luzfcb/nbiosearch
+
+.. |landscape| image:: https://landscape.io/github/luzfcb/nbiosearch/master/landscape.svg?style=flat
+    :target: https://landscape.io/github/luzfcb/nbiosearch/master
+    :alt: Code Quality Status
+
+.. |version| image:: http://img.shields.io/pypi/v/nbiosearch.png?style=flat
+    :alt: PyPI Package latest release
+    :target: https://pypi.python.org/pypi/nbiosearch
+
+.. |downloads| image:: http://img.shields.io/pypi/dm/nbiosearch.png?style=flat
+    :alt: PyPI Package monthly downloads
+    :target: https://pypi.python.org/pypi/nbiosearch
+
+.. |wheel| image:: https://pypip.in/wheel/nbiosearch/badge.png?style=flat
+    :alt: PyPI Wheel
+    :target: https://pypi.python.org/pypi/nbiosearch
+
+.. |supported-versions| image:: https://pypip.in/py_versions/nbiosearch/badge.png?style=flat
+    :alt: Supported versions
+    :target: https://pypi.python.org/pypi/nbiosearch
+
+.. |supported-implementations| image:: https://pypip.in/implementation/nbiosearch/badge.png?style=flat
+    :alt: Supported imlementations
+    :target: https://pypi.python.org/pypi/nbiosearch
+
+.. |scrutinizer| image:: https://img.shields.io/scrutinizer/g/luzfcb/nbiosearch/master.png?style=flat
+    :alt: Scrtinizer Status
+    :target: https://scrutinizer-ci.com/g/luzfcb/nbiosearch/
 
 Python wrapper to NITGEN eNBSP IndexSearch API
 
 * Free software: BSD license
-* Documentation: https://nbiosearch.readthedocs.org.
-
-
-Features
---------
-
-Usage
------
 
 Installation
-------------
+============
 
-Requirements
-^^^^^^^^^^^^
+::
 
-NITGEN eNBSP SDK Instaled. 
+    pip install nbiosearch
 
-`libNBioBSP.so` on `/usr/local/NITGEN/eNBSP/bin/`
+Documentation
+=============
 
-`Headers` on `/usr/local/NITGEN/eNBSP/include/`
+https://nbiosearch.readthedocs.org/
 
+Development
+===========
 
-Compatibility
--------------
+To run the all tests run::
 
-
-
-
-The headers files `NBioAPI.h`, `NBioAPI_Basic.h`, `NBioAPI_CheckValidity.h`, `NBioAPI_Error.h`, `NBioAPI_Export.h`, `NBioAPI_ExportType.h`, `NBioAPI_ImgConv.h`, `NBioAPI_IndexSearch.h`, `NBioAPI_IndexSearchType.h`, `NBioAPI_NSearch.h`, `NBioAPI_NSearchType.h`, `NBioAPI_Type.h`, and `libNBioBSP.so`, `NBioBSP.dll`, `NBioBSPCOM.cab`, `NBioBSPCOM.dll`, `NImgConv.dll`, `NSearch.dll` all rights reserved to Nitgen Co., Ltd.
-
-* TODO
-
-`nbiosearch` was written by `Fabio C. Barrionuevo da Luz <bnafta@gmail.com>`_.
-
-SWIG: Simplified Wrapper and Interface Generator
-------------------------------------------------
-
-
-http://www.ittc.ku.edu/kusp/kusp_docs/kusp_swig_guide/index.html
-
-http://www.swig.org/tutorial.html
-
-http://www.swig.org/Doc1.3/Python.html
+    tox
