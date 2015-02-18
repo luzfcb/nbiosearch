@@ -4,6 +4,7 @@ from __future__ import absolute_import, print_function
 
 import io
 import os
+import platform
 import re
 from glob import glob
 from os.path import basename
@@ -23,8 +24,24 @@ def read(*names, **kwargs):
         encoding=kwargs.get('encoding', 'utf8')
     ).read()
 
-nitgen_include_dir = "/usr/local/NITGEN/eNBSP/include"
-nitgen_libraries = ["pthread", "NBioBSP"]
+PLATFORM_SYSTEM = platform.system()
+PLATFORM_ARCHITECTURE = platform.architecture()[0]
+if 'Windows' in PLATFORM_SYSTEM:
+    nitgen_include_dir = r"D:\Program Files (x86)\NITGEN eNBSP\SDK\inc"
+    #nitgen_include_dir = "D:\\Program Files\\NITGEN eNBSP x64\\SDK\\Inc"
+    nitgen_libraries = ["NBioBSP"]
+    library_dirs = [
+        "D:\\Program Files (x86)\\NITGEN eNBSP\\SDK\\lib",
+        #"D:\\Program Files (x86)\\NITGEN eNBSP\\SDK\\Bin"
+        #"D:\\Program Files\\NITGEN eNBSP x64\\SDK\\Lib\\x64",
+        #"D:\\Program Files\\NITGEN eNBSP x64\\SDK\\Bin\\x64"
+    ]
+
+else:
+
+    nitgen_include_dir = "/usr/local/NITGEN/eNBSP/include"
+    nitgen_libraries = ["pthread", "NBioBSP"]
+    library_dirs = []
 
     # ext_modules=[
     #     Extension("NitgenBSP/_bsp_search", ["NitgenBSP/bsp_search.c"],
@@ -36,7 +53,8 @@ ext_modules = [
         splitext(relpath(path, 'src').replace(os.sep, '.'))[0],
         sources=[path],
         include_dirs=[dirname(path), nitgen_include_dir],
-        libraries=nitgen_libraries
+        libraries=nitgen_libraries,
+        library_dirs=library_dirs
     )
     for root, _, _ in os.walk('src')
     for path in glob(join(root, '*.c'))
