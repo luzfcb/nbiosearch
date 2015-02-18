@@ -23,7 +23,7 @@ before_install:
   - uname -a
   - lsb_release -a
   - ls -la
-  - export LD_LIBRARY_PATH=`pwd`/src/nbiosearch/eNBSP/binaries/x32/:$LD_LIBRARY_PATH
+  - export LD_LIBRARY_PATH=`pwd`/src/nbiosearch/eNBSP/binaries/x64/:$LD_LIBRARY_PATH
   - echo $LD_LIBRARY_PATH
 install:
   - pip install tox
