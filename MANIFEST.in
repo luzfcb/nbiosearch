@@ -19,3 +19,5 @@ include README.rst
 include tox.ini .travis.yml appveyor.yml
 
 global-exclude *.py[co] __pycache__ *.so *.pyd
+
+recursive-include src/nbiosearch/eNBSP *
