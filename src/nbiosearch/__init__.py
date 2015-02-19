@@ -7,6 +7,13 @@ from . import _bsp_search
 
 """Nitgen fingerprint recognition API"""
 
+__all__ = (
+    'FingerText',
+    'Finger',
+    'Handler',
+    'SearchEngine'
+)
+
 PURPOSE_VERIFY = 0x01
 PURPOSE_ENROLL = 0x03
 
@@ -72,6 +79,7 @@ class Handler:
         using the auto-detection mode.
         """
         self._handler, self._version_marjor, self._version_minor = _bsp_search.open()
+        self._api_version = (self._version_marjor, self._version_minor)
 
     # def capture(self, payload=None, purpose=PURPOSE_VERIFY, timeout=5):
     #     """Capture a fingerprint from the device and return an instance

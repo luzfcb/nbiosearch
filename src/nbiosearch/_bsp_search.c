@@ -196,7 +196,8 @@ static PyObject *search_save(PyObject *self, PyObject *args)
         return PyErr_Format(PyExc_RuntimeError, "cannot save search engine DB to file");
 
     Py_INCREF(Py_None);
-    return Py_None;
+    return Py_True;
+    //return Py_None;
 }
 
 static PyObject *search_load(PyObject *self, PyObject *args)
@@ -213,7 +214,8 @@ static PyObject *search_load(PyObject *self, PyObject *args)
         return PyErr_Format(PyExc_RuntimeError, "cannot load search engine DB from file");
 
     Py_INCREF(Py_None);
-    return Py_None;
+    return Py_True;
+    //return Py_None;
 }
 
 static PyObject *bsp_verify(PyObject *self, PyObject *args)

@@ -26,7 +26,7 @@ def read(*names, **kwargs):
 
 PLATFORM_SYSTEM = platform.system()
 PLATFORM_ARCHITECTURE = platform.architecture()[0]
-BASE_DIR = os.path.dirname(__file__)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ENBSP_DIR = os.path.join(BASE_DIR, 'src', 'nbiosearch', 'eNBSP')
 ENBSP_SHARED_LIBS_BASE_DIR = os.path.join(ENBSP_DIR, 'binaries')
 ENBSP_HEADERS_INCLUDE_DIR = os.path.join(ENBSP_DIR, 'include')
@@ -66,7 +66,8 @@ ext_modules = [
         sources=[path],
         include_dirs=[dirname(path), ENBSP_HEADERS_INCLUDE_DIR],
         libraries=nitgen_libraries,
-        library_dirs=nitgen_binary_library_dir
+        library_dirs=nitgen_binary_library_dir,
+        runtime_library_dirs=nitgen_binary_library_dir
     )
     for root, _, _ in os.walk('src')
     for path in glob(join(root, '*.c'))
